@@ -2,35 +2,22 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>The Breakfast Burrito Factory</title>
+    <title>The Breakfast Burrito Factory App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         function redirect() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
-            // Standard App Store Destinations
+            // Rock-solid store link formats
             var iosStore = "https://apps.apple.com/us/app/the-breakfast-burrito-factory/id6759361628";
             var androidStore = "https://google.com";
             var webFallback = "https://thebreakfastburritofactory.com"; 
 
-            // Deep link scheme to try waking up the app directly if it's installed
-            var iosDeepLink = "thebreakfastburritofactory://"; 
-            var androidDeepLink = "intent://#Intent;scheme=thebreakfastburritofactory;package=com.storefrontconsumer.the.breakfast.burrito.factory;end";
-
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                // Try opening the app locally first
-                window.location.href = iosDeepLink;
-                // If the app isn't installed, fallback to the store page after a tiny delay
-                setTimeout(function() {
-                    window.location.replace(iosStore);
-                }, 1500);
+                window.location.replace(iosStore);
             } 
             else if (/android/i.test(userAgent)) {
-                // Android intent handles app launching and store redirect gracefully
-                window.location.href = androidDeepLink;
-                setTimeout(function() {
-                    window.location.replace(androidStore);
-                }, 1500);
+                window.location.replace(androidStore);
             } 
             else {
                 window.location.replace(webFallback);
@@ -39,15 +26,30 @@
         window.onload = redirect;
     </script>
     <style>
-        body { font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #fafafa; text-align: center; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #fafafa; text-align: center; color: #333; }
+        .container { padding: 20px; }
         .spinner { border: 4px solid rgba(0,0,0,0.08); width: 40px; height: 40px; border-radius: 50%; border-left-color: #e65100; animation: spin 0.8s linear infinite; margin: 0 auto 20px auto; }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 28px; background-color: #e65100; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div>
+    <div class="container">
         <div class="spinner"></div>
-        <p>Opening The Breakfast Burrito Factory...</p>
+        <p style="font-size: 16px; font-weight: 500; margin: 0 0 8px 0;">Opening App Store...</p>
+        <p style="font-size: 14px; color: #666; margin: 0;">If it doesn't open automatically, click below:</p>
+        <a href="https://apps.apple.com/us/app/the-breakfast-burrito-factory/id6759361628" class="btn" id="manual-btn">Open Store</a>
     </div>
+
+    <script>
+        // Adjust manual fallback link text/destination adaptively based on scanning device
+        var ua = navigator.userAgent || navigator.vendor || window.opera;
+        var btn = document.getElementById('manual-btn');
+        if (/android/i.test(ua)) {
+            btn.href = "https://google.com";
+        } else if (!(/iPad|iPhone|iPod/.test(ua) && !window.MSStream)) {
+            btn.href = "https://thebreakfastburritofactory.com";
+        }
+    </script>
 </body>
 </html>
