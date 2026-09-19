@@ -4,52 +4,111 @@
     <meta charset="UTF-8">
     <title>The Breakfast Burrito Factory App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script>
         function redirect() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            // Rock-solid store link formats
+
             var iosStore = "https://apps.apple.com/us/app/the-breakfast-burrito-factory/id6759361628";
-            var androidStore = "https://google.com";
-            var webFallback = "https://thebreakfastburritofactory.com"; 
+            var androidStore = "https://play.google.com/store/apps/details?id=com.storefrontconsumer.the.breakfast.burrito.factory&pli=1";
+            var webFallback = "https://thebreakfastburritofactory.com";
 
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // iPhone / iPad → Apple App Store
                 window.location.replace(iosStore);
-            } 
+            }
             else if (/android/i.test(userAgent)) {
+                // Android → Google Play Store
                 window.location.replace(androidStore);
-            } 
+            }
             else {
+                // Desktop / other devices → Website
                 window.location.replace(webFallback);
             }
         }
+
         window.onload = redirect;
     </script>
+
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #fafafa; text-align: center; color: #333; }
-        .container { padding: 20px; }
-        .spinner { border: 4px solid rgba(0,0,0,0.08); width: 40px; height: 40px; border-radius: 50%; border-left-color: #e65100; animation: spin 0.8s linear infinite; margin: 0 auto 20px auto; }
-        .btn { display: inline-block; margin-top: 20px; padding: 12px 28px; background-color: #e65100; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fafafa;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.08);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border-left-color: #e65100;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background-color: #e65100;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
+
 <body>
+
     <div class="container">
         <div class="spinner"></div>
-        <p style="font-size: 16px; font-weight: 500; margin: 0 0 8px 0;">Opening App Store...</p>
-        <p style="font-size: 14px; color: #666; margin: 0;">If it doesn't open automatically, click below:</p>
-        <a href="https://apps.apple.com/us/app/the-breakfast-burrito-factory/id6759361628" class="btn" id="manual-btn">Open Store</a>
+
+        <p style="font-size: 16px; font-weight: 500; margin: 0 0 8px 0;">
+            Opening App Store...
+        </p>
+
+        <p style="font-size: 14px; color: #666; margin: 0;">
+            If it doesn't open automatically, click below:
+        </p>
+
+        <a href="https://apps.apple.com/us/app/the-breakfast-burrito-factory/id6759361628"
+           class="btn"
+           id="manual-btn">
+            Open Store
+        </a>
     </div>
 
     <script>
-        // Adjust manual fallback link text/destination adaptively based on scanning device
+        // Set the manual button to the correct destination
         var ua = navigator.userAgent || navigator.vendor || window.opera;
         var btn = document.getElementById('manual-btn');
+
         if (/android/i.test(ua)) {
-            btn.href = "https://google.com";
-        } else if (!(/iPad|iPhone|iPod/.test(ua) && !window.MSStream)) {
+            btn.href = "https://play.google.com/store/apps/details?id=com.storefrontconsumer.the.breakfast.burrito.factory&pli=1";
+        }
+        else if (!(/iPad|iPhone|iPod/.test(ua) && !window.MSStream)) {
             btn.href = "https://thebreakfastburritofactory.com";
         }
     </script>
+
 </body>
 </html>
